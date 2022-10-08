@@ -3,36 +3,59 @@
 #include<fstream>
 using namespace std;
 
-string openFile(string filename, char wor){
-    string rs;
-    string waitstr = "";
-    int x = 0;
-    if (wor == 'w'){
-        ofstream file1;
-        file1.open(filename);
-        file1 << rs;
-    }
-    else if (wor == 'r'){
-        ifstream file1;
-        file1.open(filename);
-        while (file1) {
-            file1 >> rs;
-            if (rs.at(rs.length()-1) == ';')
-            {
-                waitstr += rs + " ";
-                waitstr += "\n";
+
+void read(string input){
+    string output = "";
+    int pointer = 0;
+    string temp;
+    ifstream filef;
+
+
+
+
+    string StringforTemp = "";
+    int counter1 = 0;
+    bool isQuoted = false;
+
+
+
+
+    
+    filef.open(input);
+    do
+    {
+            filef >> temp;
+
+
+
+            // Main Functioning
+
+            
+            if (temp == "print"){
+                isQuoted = true;
             }
-            else{
-                waitstr += rs + " ";
+            else if (isQuoted){
+                if (temp.at(temp.length()-1) == ';'){
+                    StringforTemp += " ";
+                    isQuoted = false;
+                    while (counter1 < temp.length()-1){
+                        StringforTemp += temp.at(counter1);
+                        counter1+=1;
+                    }
+                    StringforTemp += "\n";
+                    cout << StringforTemp << endl;
+                }
+                else{
+                    StringforTemp += " "+temp;
+                }
             }
-        }
-    }
-    else{
-        cout << "Internal Error. Wrong Syntax!";
-    }
-    return waitstr;
+    output += " "+temp;        
+
+    } while (filef.good());
 }
 
-int main(){
-    cout << openFile("test.cpyler",'r') << endl;
+int main(int argc, char** argv)
+{
+    read(argv[1]);
+    return 0;
 }
