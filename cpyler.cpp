@@ -36,7 +36,6 @@ void read(string input){
             }
             else if (isQuoted){
                 if (temp.at(temp.length()-1) == ';'){
-                    StringforTemp += " ";
                     isQuoted = false;
                     while (counter1 < temp.length()-1){
                         StringforTemp += temp.at(counter1);
@@ -46,7 +45,7 @@ void read(string input){
                     cout << StringforTemp << endl;
                 }
                 else{
-                    StringforTemp += " "+temp;
+                    StringforTemp += temp+ " ";
                 }
             }
     output += " "+temp;        
